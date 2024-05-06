@@ -16,8 +16,8 @@ jobs:
       with:
         php-version: '8.2'
     - uses: actions/checkout@v4
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    # - name: Copy .env
+    #   run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
@@ -30,10 +30,7 @@ jobs:
       run: npm run build
     - name: Create Database
       run: |
-       mkdir -p database
-       touch database/database.sqlite
+        sudo systemctl start mysql
+        mysql --user="root" --password="" -e "CREATE DATABASE \`joticketsaler\` character set UTF8mb4 collate utf8mb4_bin;"
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
-      env:
-       DB_CONNECTION: sqlite
-       DB_DATABASE: database/database.sqlite
       run: php artisan test
