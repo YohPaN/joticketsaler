@@ -27,7 +27,7 @@ jobs:
     - name: Npm installation
       run: npm install
     - name:  dependencies installation
-      run: npm run dev
+      run: npm run build
     #- name: Create Database
    #   run: |
       #  mkdir -p database
