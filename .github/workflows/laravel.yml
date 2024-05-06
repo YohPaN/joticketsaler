@@ -25,6 +25,8 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Npm installation
+      run: npm install
+    - name:  dependencies installation
       run: npm run dev
     #- name: Create Database
    #   run: |
