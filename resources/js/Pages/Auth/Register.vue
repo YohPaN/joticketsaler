@@ -42,7 +42,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
-            <div>
+            <div class="mt-4">
                 <InputLabel for="last_name" value="Last Name" />
 
                 <TextInput
@@ -86,6 +86,16 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.password" />
+
+                <div class="justify-self-end relative text-xs mt-2">
+                    <p>Le mot de passe doit contenir:</p>
+                    <ul class="list-disc ml-4">
+                        <li>Au moins 8 charactères</li>
+                        <li>Une lettre minuscule et MAJUSCULE</li>
+                        <li>Un chiffre</li>
+                        <li>Un charactères spécial (ex: "@", "#", "]")</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="mt-4">
