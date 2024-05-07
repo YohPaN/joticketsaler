@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -50,5 +51,19 @@ class User extends Authenticatable
 
     public function role(): BelongsTo {
         return $this->belongsTo(Role::class);
+    }
+
+    public function isAdmin() {
+        if(Auth::user()->role_id === 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isOrganisator() {
+        if(Auth::user()->role_id === 2) {
+            return true;
+        }
+        return false;
     }
 }
