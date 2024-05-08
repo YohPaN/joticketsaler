@@ -19,6 +19,20 @@ export default {
                 'primary': '#0d6efd',
                 'success': '#198754',
                 'danger': '#dc3545',
+            },
+            animation: {
+                'edit-offer': '1s ease-in slidein forwards',
+                'remove-edit': '1s ease-in slideout forwards'
+            },
+            keyframes: {
+                slideout: {
+                    '0%': {transform: 'translateY(100%)'},
+                    '100%': {transform: 'translateY(-100%)'}
+                },
+                slidein: {
+                    '0%': {transform: 'translateY(-100%)'},
+                    '100%': {transform: 'translateY(100%)'}
+                }
             }
         },
     },

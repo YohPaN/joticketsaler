@@ -1,8 +1,10 @@
 <script setup>
+
 </script>
 
 <template>
-    <div class="rounded-xl bg-slate-300 shadow-xl text-center p-5">
+    <div class="rounded-xl bg-slate-300 shadow-xl text-center p-5 relative overflow-hidden">
+        <slot name="edit"></slot>
         <div class="w-full flex justify-center mt-8 mb-4">
             <slot name="image"></slot>
         </div>

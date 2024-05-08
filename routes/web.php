@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Offer;
 use Illuminate\Foundation\Application;
@@ -45,5 +46,9 @@ Route::get('/admin', function () {
     }
     abort(403);
 });
+
+Route::delete('offer/{id}', [OfferController::class, 'destroy'])->name('offer.delete');
+Route::post('offer', [OfferController::class, 'store'])->name('offer.store');
+Route::put('offer', [OfferController::class, 'update'])->name('offer.update');
 
 require __DIR__.'/auth.php';

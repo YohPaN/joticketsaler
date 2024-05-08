@@ -2,63 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offer;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:1|max:255|unique:offers',
+            'price' => 'required|decimal:2|min:0',
+            'ticket_number' => 'required|integer|min:0|max:255',
+        ]);
+
+        Offer::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'ticket_number' => $request->ticket_number,
+        ]);
+
+        return redirect('/admin');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'min:1', 'max:255', Rule::unique('offers')->ignore($request->id)],
+            'price' => 'required|decimal:2|min:0',
+            'ticket_number' => 'required|integer|min:0|max:255',
+        ]);
+
+        $offer = Offer::find($request->id);
+
+        $offer->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'ticket_number' => $request->ticket_number,
+        ]);
+
+        return redirect('/admin');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Offer::destroy($id);
     }
 }
