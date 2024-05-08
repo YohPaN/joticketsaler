@@ -47,8 +47,8 @@ Route::get('/admin', function () {
     abort(403);
 });
 
-Route::delete('offer/{id}', [OfferController::class, 'destroy'])->name('offer.delete');
 Route::post('offer', [OfferController::class, 'store'])->name('offer.store');
 Route::put('offer', [OfferController::class, 'update'])->name('offer.update');
+Route::delete('offer/{id}', [OfferController::class, 'destroy'])->name('offer.delete');
 
 require __DIR__.'/auth.php';
