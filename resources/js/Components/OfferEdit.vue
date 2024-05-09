@@ -11,8 +11,8 @@ const offer = props.offer
 const form = useForm({
     id: offer.id,
     name: offer.name,
-    price: offer.price,
-    ticket_number: offer.ticket_number,
+    price: String(offer.price),
+    ticket_number: String(offer.ticket_number),
 });
 
 const submit = () => {

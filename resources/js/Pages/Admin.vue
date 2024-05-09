@@ -45,19 +45,9 @@ function create() {
                             </svg>
                         </div>
                     </button>
-                    <Offer v-for="offer in offers">
+                    <Offer v-for="offer in offers" :offerName="offer.name">
                         <template #edit>
                             <OfferEdit :offer="offer"></OfferEdit>
-                        </template>
-                        <template #image>
-                            <span v-if="images['/resources/assets/' + offer.name + '_ticket.png']">
-                                <img style="max-height: 15rem;" :src="images['/resources/assets/' + offer.name + '_ticket.png']">
-                            </span>
-
-                            <span v-else>
-                                <img style="max-height: 15rem;" src="../../assets/JO_logo.png">
-
-                            </span>
                         </template>
                         <template #title>
                             {{ offer.name }}

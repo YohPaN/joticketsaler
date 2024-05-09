@@ -1,10 +1,11 @@
 <script setup>
 import Navbar from '@/Layouts/Navbar.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import escaldadePic from '../../assets/escalade.jpg';
 import runningPic from '../../assets/running.jpg';
 import SportPresentation from '@/Components/SportPresentation.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 defineProps({
     canLogin: {
@@ -13,24 +14,13 @@ defineProps({
     canRegister: {
         type: Boolean,
     },
-    laravelVersion: {
-        type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
-    },
 });
 </script>
 
 <template>
     <Head title="Welcome" />
 
-    <div
-        class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white"
-    >
-
+    <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         <Navbar
             :canLogin="canLogin"
             :canRegister="canRegister"
@@ -38,6 +28,11 @@ defineProps({
 
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <ApplicationLogo></ApplicationLogo>
+            <div class="flex justify-center my-8">
+                <PrimaryButton @click="router.get('shop')">
+                    Acheter vos place
+                </PrimaryButton>
+            </div>
 
             <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                 <div>

@@ -23,10 +23,8 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -50,5 +48,13 @@ Route::get('/admin', function () {
 Route::post('offer', [OfferController::class, 'store'])->name('offer.store');
 Route::put('offer', [OfferController::class, 'update'])->name('offer.update');
 Route::delete('offer/{id}', [OfferController::class, 'destroy'])->name('offer.delete');
+
+Route::get('shop', function() {
+    return Inertia::render('Shop', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'offers' => Offer::all()->select('id', 'name', 'price', 'ticket_number')->sortBy('ticket_number'),
+    ]);
+})->middleware(['auth', 'verified'])->name('shop');
 
 require __DIR__.'/auth.php';

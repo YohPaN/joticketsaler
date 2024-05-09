@@ -7,12 +7,13 @@ import { useForm } from '@inertiajs/vue3'
 
 const form = useForm({
     name: '',
-    price: 0.00,
-    ticket_number: 0,
+    price: "0.00",
+    ticket_number: "0",
 });
 
 const submit = () => {
     form.post(route('offer.store'), {
+        onError: () => console.log('test'),
         onSuccess: () => {
             removeEdit();
             form.reset('name', 'price', 'ticket_number');
@@ -21,7 +22,7 @@ const submit = () => {
 };
 
 function removeEdit(event) {
-    event.stopPropagation()
+    event ? event.stopPropagation() : null;
     const mainContainer = document.getElementById('container-main');
     mainContainer.classList.remove('animate-edit-offer');
     mainContainer.classList.add('animate-remove-edit');
@@ -55,6 +56,7 @@ function removeEdit(event) {
                     id="price"
                     type="text"
                     class="mt-1 block w-full"
+                    pattern="^\d{1,2}\.\d{2}$"
                     v-model="form.price"
                     required
                 />
