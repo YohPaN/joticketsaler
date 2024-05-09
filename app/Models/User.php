@@ -54,14 +54,14 @@ class User extends Authenticatable
     }
 
     public function isAdmin() {
-        if(Auth::user()->role_id === 1) {
+        if(Auth::user()->role_id == 1) {
             return true;
         }
         return false;
     }
 
     public function isOrganisator() {
-        if(Auth::user()->role_id === 2) {
+        if(Auth::user()->role_id == 2) {
             return true;
         }
         return false;
