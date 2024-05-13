@@ -29,7 +29,7 @@ defineProps({
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <ApplicationLogo></ApplicationLogo>
             <div class="flex justify-center my-8">
-                <PrimaryButton @click="router.get('shop')">
+                <PrimaryButton @click="router.get('shop')" id="shop">
                     Acheter vos place
                 </PrimaryButton>
             </div>
