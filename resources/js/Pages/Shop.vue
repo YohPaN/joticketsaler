@@ -1,7 +1,8 @@
 <script setup>
 import Offer from '@/Components/Offer.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Navbar from '@/Layouts/Navbar.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 
 
 defineProps({
@@ -13,8 +14,16 @@ defineProps({
     },
     offers: {
         type: Array,
+    },
+    cartId: {
+        type: Number,
     }
 });
+
+function add(offerId) {
+    router.post(route('cart.store'), {id: offerId});
+}
+
 </script>
 
 <template>
@@ -37,10 +46,12 @@ defineProps({
                             {{ offer.ticket_number }}
                         </template>
                         <template #button>
-                            <button class="bg-primary rounded-xl p-2 text-white" @click="edit(offer.id)">Ajouter au panier</button>
+                            <button class="bg-primary rounded-xl p-2 text-white" @click="add(offer.id)">Ajouter au panier</button>
                         </template>
                     </Offer>
                 </div>
+
+                <div @click="router.get('cart')" class="mt-10 flex justify-center"><PrimaryButton>Continuer vers le payement</PrimaryButton></div>
             </div>
         </div>
     </div>

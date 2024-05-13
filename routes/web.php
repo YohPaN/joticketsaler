@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Offer;
-use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('cart', [CartController::class, 'show'])->name('cart.show');
+    Route::post('cart', [CartController::class, 'store'])->name('cart.store');
+    Route::put('cart', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('cart/{id}', [CartController::class, 'destroy'])->name('cart.delete');
 });
 
 Route::get('/admin', function () {
@@ -54,6 +60,7 @@ Route::get('shop', function() {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'offers' => Offer::all()->select('id', 'name', 'price', 'ticket_number')->sortBy('ticket_number'),
+        'cartId' => Auth::user()->cart->id,
     ]);
 })->middleware(['auth', 'verified'])->name('shop');
 
