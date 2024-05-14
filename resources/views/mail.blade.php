@@ -2,7 +2,11 @@
     <p>Bonjour,</p>
     <br>
     <p>Voici votre e-ticket pour les JO 2024: </p>
-    {!! DNS2D::getBarCodeHTML($qrCode, 'QRCODE') !!}
+    <div>
+        @php
+            echo '<img style="width: 300px" src="'.(new chillerlan\QRCode\QRCode)->render($qrCode).'" alt="QR Code" />';
+        @endphp
+    </div>
     <br>
     <p>Bonne réception !</p>
     <p>Les organisateurs</p>
