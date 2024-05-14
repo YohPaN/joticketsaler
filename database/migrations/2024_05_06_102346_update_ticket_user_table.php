@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ticket_user', function(Blueprint $table) {
-            $table->foreignUuid('user_id')->references('id')->on('users');
+            if(!Schema::hasColumn('ticket_user', 'user_id')) {
+                $table->foreignUuid('user_id')->references('id')->on('users');
+            }
         });
     }
 

@@ -6,19 +6,38 @@ import runningPic from '../../assets/running.jpg';
 import SportPresentation from '@/Components/SportPresentation.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import Modal from '@/Components/Modal.vue';
+import { ref } from 'vue';
 
-defineProps({
+const props = defineProps({
     canLogin: {
         type: Boolean,
     },
     canRegister: {
         type: Boolean,
     },
+    successMessage: {
+        type: String,
+        default: 'test'
+    }
 });
+
+const showModal = ref(props.successMessage);
+
+function close() {
+    showModal.value = false;
+}
+
 </script>
 
 <template>
     <Head title="Welcome" />
+
+    <Modal :show="showModal" @close="close">
+        <div class="w-full h-24 flex justify-center items-center bg-success">
+            {{ successMessage }}
+        </div>
+    </Modal>
 
     <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         <Navbar

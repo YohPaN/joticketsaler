@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Offer;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,7 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'successMessage' => session('success_payment'),
     ]);
 })->name('welcome');
 
@@ -40,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::post('cart', [CartController::class, 'store'])->name('cart.store');
     Route::put('cart', [CartController::class, 'update'])->name('cart.update');
     Route::delete('cart/{id}', [CartController::class, 'destroy'])->name('cart.delete');
+
+    Route::get('payment', [PaymentController::class, 'index'])->name('payment');
+    Route::post('checkout', [PaymentController::class, 'checkout'])->name('checkout');
 });
 
 Route::get('/admin', function () {

@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tickets', function(Blueprint $table) {
-            $table->foreignUuid('ticket_user_id')->references('id')->on('ticket_user');
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->dropForeign('tickets_ticket_user_id_foreign');
+        });
+
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->string('ticket_user_id')->nullable()->change();
         });
     }
 
@@ -22,9 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tickets', function (Blueprint $table) {
-            if(Schema::hasColumn('tickets', 'tickets_ticket_user_id_foreign')) {
-                $table->dropForeign('tickets_ticket_user_id_foreign');
-            }
+            $table->uuid('ticket_user_id')->nullable()->change();
         });
     }
 };
