@@ -30,7 +30,7 @@ class TicketMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('test@test.com', 'Organisation des JO'),
+            from: new Address('	organisateur@joticketsaler.fallforrising.com', 'Organisation des JO'),
             subject: 'Ticket pour les JO 2024',
         );
     }
