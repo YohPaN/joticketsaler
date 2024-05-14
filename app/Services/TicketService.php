@@ -10,13 +10,14 @@ class TicketService
 {
     public function ticketCreation()
     {
+        $user = Auth::user();
 
         $ticket = Ticket::create([
             'scanned' => false,
             'ticket_user_id' => null,
         ]);
 
-        $ticketUserId = Auth::user()->id.'-'.$ticket->id;
+        $ticketUserId = $user->id.'-'.$ticket->id;
 
         $ticket->update([
             'ticket_user_id' => $ticketUserId,
@@ -24,7 +25,11 @@ class TicketService
 
         DB::table('ticket_user')->insert([
             'id' => $ticketUserId,
-            'user_id' => Auth::user()->id,
+            'user_id' => $user->id,
+        ]);
+
+        $user->cart->update([
+            'items' => null,
         ]);
 
         return $ticket;
