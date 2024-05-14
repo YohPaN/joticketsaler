@@ -16,7 +16,7 @@ class TicketServiceTest extends TestCase
     {
         $this->seed(RoleSeeder::class);
 
-        $user = User::factory()->create([
+        $user = User::factory()->hasCart()->create([
             'id' => '9c08c85d-df4e-4cb8-b574-18f5a0e8fb2a'
         ]);
 

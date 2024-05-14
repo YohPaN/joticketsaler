@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Mail\TicketMail;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class TicketService
 {
@@ -31,6 +33,8 @@ class TicketService
         $user->cart->update([
             'items' => null,
         ]);
+
+        Mail::to($user)->send(new TicketMail($ticket));
 
         return $ticket;
     }

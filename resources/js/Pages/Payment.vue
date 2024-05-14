@@ -18,7 +18,6 @@ function submit() {
 }
 
 function cardInput(event) {
-    console.log(event.target.value.length % 4)
     const inputLength = event.target.value.length;
     if(inputLength === 4 || inputLength === 9 || inputLength === 14) {
         form.card_number = form.card_number + ' ';

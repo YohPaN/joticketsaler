@@ -28,7 +28,7 @@ class PaymentControllerTest extends TestCase
     {
         $this->seed(RoleSeeder::class);
 
-        $user = User::factory()->create();
+        $user = User::factory()->hasCart()->create();
 
         $response = $this
             ->actingAs($user)
