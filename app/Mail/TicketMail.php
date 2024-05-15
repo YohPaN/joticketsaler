@@ -18,7 +18,7 @@ class TicketMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        protected Ticket $ticket,
+        protected array $offers,
     )
     {
 
@@ -43,7 +43,7 @@ class TicketMail extends Mailable
         return new Content(
             view: 'mail',
             with: [
-                'qrCode' => $this->ticket->ticket_user_id,
+                'offers' => $this->offers,
             ]
         );
     }

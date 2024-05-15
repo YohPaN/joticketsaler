@@ -1,9 +1,19 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import Modal from '@/Components/Modal.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
+import { ref, watch } from 'vue';
+
+const props = defineProps({
+    errorMessage: {
+        type: String,
+    }
+})
+
+const showModal = ref(false);
 
 const form = useForm({
     card_number: '',
@@ -12,9 +22,7 @@ const form = useForm({
 })
 
 function submit() {
-    form.post(route('checkout'), {
-        onSuccess: () => console.log('test')
-    })
+    form.post(route('checkout'));
 }
 
 function cardInput(event) {
@@ -23,11 +31,27 @@ function cardInput(event) {
         form.card_number = form.card_number + ' ';
     }
 }
+
+function close() {
+    showModal.value = false;
+}
+
+watch(props,
+    () => {
+        showModal.value = props.errorMessage;
+    }
+)
 </script>
 
 <template>
 
 <Head title="Payment" />
+
+<Modal :show="showModal" @close="close">
+    <div class="w-full h-24 flex justify-center items-center bg-danger">
+        {{ errorMessage }}
+    </div>
+</Modal>
 
 <div class="min-h-screen bg-gray-100 flex justify-center items-center pt-16">
     <div class="py-12 w-full">
