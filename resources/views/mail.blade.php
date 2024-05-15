@@ -3,9 +3,7 @@
     <br>
     <p>Voici votre e-ticket pour les JO 2024: </p>
     <div>
-        @php
-            echo '<img style="width: 300px" src="'.(new chillerlan\QRCode\QRCode)->render($qrCode).'" alt="QR Code" />';
-        @endphp
+        <img alt="QR Code" src="{{ $message->embedData(html_entity_decode(QrCode::format('png')->generate($qrCode)), 'QrCode.png') }}">
     </div>
     <br>
     <p>Bonne réception !</p>
