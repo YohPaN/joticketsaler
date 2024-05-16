@@ -17,7 +17,8 @@ const submit = () => {
         onSuccess: () => {
             removeEdit();
             form.reset('name', 'price', 'ticket_number');
-        }
+        },
+        preserveScroll: true,
     });
 };
 

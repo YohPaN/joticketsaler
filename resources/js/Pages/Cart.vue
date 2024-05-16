@@ -35,6 +35,7 @@ function deleteItem (itemId) {
                 total.value += element.count * element.price;
             });
         },
+        preserveScroll: true,
     })
 }
 
@@ -46,7 +47,7 @@ function deleteItem (itemId) {
         :canLogin="canLogin"
         :canRegister="canRegister"
     ></Navbar>
-    <div class="min-h-screen bg-gray-100 flex justify-center items-center pt-16">
+    <div class="min-h-screen sm:flex sm:justify-center sm:items-center bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         <div class="py-12 w-full">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <h1 class="font-semibold text-4xl uppercase underline text-center text-gray-800 leading-tight mb-5">Panier</h1>
@@ -85,7 +86,7 @@ function deleteItem (itemId) {
                                 <PrimaryButton class="w-full h-full justify-center bg-red-500">Retour au shop</PrimaryButton>
                             </div>
                             <div @click="router.get('payment')" class="m-3 basis-1/2">
-                                <PrimaryButton class="w-full justify-center" :disabled="totalCount < 1">Continuer vers le payement</PrimaryButton>
+                                <PrimaryButton class="w-full justify-center" :disabled="data.length < 1">Continuer vers le payement</PrimaryButton>
                             </div>
                         </div>
                     </div>

@@ -1,12 +1,10 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import Modal from '@/Components/Modal.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import Navbar from '@/Layouts/Navbar.vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
-import { ref, watch } from 'vue';
 
 const props = defineProps({
     canLogin: {
@@ -14,13 +12,8 @@ const props = defineProps({
     },
     canRegister: {
         type: Boolean,
-    },
-    errorMessage: {
-        type: String,
     }
 })
-
-const showModal = ref(false);
 
 const form = useForm({
     card_number: '',
@@ -39,33 +32,18 @@ function cardInput(event) {
     }
 }
 
-function close() {
-    showModal.value = false;
-}
-
-watch(props,
-    () => {
-        showModal.value = props.errorMessage;
-    }
-)
 </script>
 
 <template>
 
 <Head title="Payment" />
 
-<Modal :show="showModal" @close="close">
-    <div class="w-full h-24 flex justify-center items-center bg-danger">
-        {{ errorMessage }}
-    </div>
-</Modal>
-
 <Navbar
     :canLogin="canLogin"
     :canRegister="canRegister"
 ></Navbar>
 
-<div class="min-h-screen bg-gray-100 flex justify-center items-center pt-16">
+<div class="min-h-screen sm:flex sm:justify-center sm:items-center bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
     <div class="py-12 w-full">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h1 class="font-semibold text-4xl uppercase underline text-center text-gray-800 leading-tight mb-5">Paiement</h1>

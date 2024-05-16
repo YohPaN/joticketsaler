@@ -18,6 +18,7 @@ const form = useForm({
 const submit = () => {
     form.put(route('offer.update'), {
         onSuccess: () => removeEdit(),
+        preserveScroll: true,
     });
 };
 

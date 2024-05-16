@@ -7,7 +7,7 @@ defineProps(['offerName'])
 <template>
     <div class="rounded-xl bg-slate-300 shadow-xl text-center p-5 relative overflow-hidden">
         <slot name="edit"></slot>
-        <div class="w-full flex justify-center mt-8 mb-4">
+        <div class="w-full flex justify-center mt-8 mb-4 h-60">
             <span v-if="images['/resources/assets/' + offerName + '_ticket.png']">
                 <img style="max-height: 15rem;" :src="images['/resources/assets/' + offerName + '_ticket.png']">
             </span>

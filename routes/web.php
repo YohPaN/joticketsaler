@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\CartIsEmpty;
 use App\Models\Offer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -34,12 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('cart', [CartController::class, 'show'])->name('cart.show');
     Route::post('cart', [CartController::class, 'store'])->name('cart.store');
     Route::put('cart', [CartController::class, 'update'])->name('cart.update');
     Route::delete('cart/{id}', [CartController::class, 'destroy'])->name('cart.delete');
 
-    Route::get('payment', [PaymentController::class, 'index'])->name('payment');
     Route::post('checkout', [PaymentController::class, 'checkout'])->name('checkout');
 
     Route::get('shop', function() {
@@ -48,8 +47,15 @@ Route::middleware('auth')->group(function () {
             'canRegister' => Route::has('register'),
             'offers' => Offer::all()->select('id', 'name', 'price', 'ticket_number')->sortBy('ticket_number'),
             'cartId' => Auth::user()->cart->id,
+            'warningMessage' => session('empty_cart'),
         ]);
     })->name('shop');
+});
+
+Route::middleware(['auth', CartIsEmpty::class])->group(function() {
+    Route::get('cart', [CartController::class, 'show'])->name('cart.show');
+
+    Route::get('payment', [PaymentController::class, 'index'])->name('payment');
 });
 
 Route::get('/admin', function () {

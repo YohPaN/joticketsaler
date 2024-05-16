@@ -9,7 +9,9 @@ const images = import.meta.glob('/resources/assets/*_ticket.png', { eager: true,
 defineProps({offers: Array})
 
 function deleteOffer(id) {
-    router.delete('offer/' + id);
+    router.delete('offer/' + id, {
+        preserveScroll: true,
+    });
 }
 
 

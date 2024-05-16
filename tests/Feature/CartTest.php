@@ -113,7 +113,7 @@ class CartTest extends TestCase
     {
         $this->seed(RoleSeeder::class);
         $this->seed(OfferSeeder::class);
-        $user = User::factory()->hasCart()->create();
+        $user = User::factory()->hasCart(['items' => json_encode([['offer_id' => 1, 'count' => 1]])])->create();
 
         $response = $this
             ->actingAs($user)

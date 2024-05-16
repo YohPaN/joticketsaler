@@ -17,7 +17,7 @@ class PaymentControllerTest extends TestCase
     {
         $this->seed(RoleSeeder::class);
 
-        $user = User::factory()->create();
+        $user = User::factory()->hasCart(['items' => json_encode([['offer_id' => 1, 'count' => 1]])])->create();
 
         $response = $this
             ->actingAs($user)
@@ -40,7 +40,6 @@ class PaymentControllerTest extends TestCase
                 'cvc' => 123,
             ]);
 
-        $response->assertSessionHasErrorsIn('payment_error');
         $response->assertRedirect(session()->previousUrl());
     }
 

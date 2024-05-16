@@ -18,7 +18,6 @@ const props = defineProps({
     },
     successMessage: {
         type: String,
-        default: 'test'
     }
 });
 
@@ -38,13 +37,11 @@ function close() {
             {{ successMessage }}
         </div>
     </Modal>
-
+    <Navbar
+        :canLogin="canLogin"
+        :canRegister="canRegister"
+    ></Navbar>
     <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-        <Navbar
-            :canLogin="canLogin"
-            :canRegister="canRegister"
-        ></Navbar>
-
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <ApplicationLogo></ApplicationLogo>
             <div class="flex justify-center my-8">

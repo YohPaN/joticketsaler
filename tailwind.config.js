@@ -19,6 +19,7 @@ export default {
                 'primary': '#0d6efd',
                 'success': '#198754',
                 'danger': '#dc3545',
+                'warning': '#ffc107',
             },
             animation: {
                 'edit-offer': '1s ease-in slidein forwards',

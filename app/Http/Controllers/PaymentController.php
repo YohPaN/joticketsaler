@@ -10,12 +10,7 @@ use Inertia\Inertia;
 class PaymentController extends Controller
 {
     public function index() {
-        $errorMessage = null;
-        if(session()->get('errors')) {
-            $errorMessage = session()->get('errors')->getBag('payment_error')->first();
-        }
         return Inertia::render('Payment', [
-            'errorMessage' => $errorMessage,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
         ]);
@@ -37,6 +32,6 @@ class PaymentController extends Controller
             return redirect('/')->with('success_payment', 'Votre payement à bien été accepté !');
         }
 
-        return redirect()->back()->withErrors('Une erreur est survenue !', 'payment_error');
+        return redirect()->back();
     }
 }
