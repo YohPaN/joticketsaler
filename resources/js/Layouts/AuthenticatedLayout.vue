@@ -37,6 +37,11 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                             </div>
                             <div class="ms-3 relative">
+                                <NavLink :href="route('scan')" :active="route().current('dashboard')">
+                                    Scan
+                                </NavLink>
+                            </div>
+                            <div class="ms-3 relative">
                                 <NavLink :href="route('logout')" method="post" as="button">
                                     Déconnecxion
                                 </NavLink>
