@@ -85,7 +85,7 @@ function deleteItem (itemId) {
                                 <PrimaryButton class="w-full h-full justify-center bg-red-500">Retour au shop</PrimaryButton>
                             </div>
                             <div @click="router.get('payment')" class="m-3 basis-1/2">
-                                <PrimaryButton class="w-full justify-center">Continuer vers le payement</PrimaryButton>
+                                <PrimaryButton class="w-full justify-center" :disabled="totalCount < 1">Continuer vers le payement</PrimaryButton>
                             </div>
                         </div>
                     </div>

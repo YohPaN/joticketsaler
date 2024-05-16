@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\TicketService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class PaymentController extends Controller
@@ -15,6 +16,8 @@ class PaymentController extends Controller
         }
         return Inertia::render('Payment', [
             'errorMessage' => $errorMessage,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
         ]);
     }
 

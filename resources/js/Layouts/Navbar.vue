@@ -9,19 +9,26 @@ const props = defineProps([
 </script>
 
 <template>
-    <div v-if="canLogin" class="sm:fixed sm:top-0 sm:right-0 p-6 text-end w-full">
+    <div v-if="canLogin" class="fixed top-0 right-0 p-6 text-end w-full">
         <Link
             :href="route('welcome')"
             class="me-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
             >Accueil</Link
         >
-        <Link
-            v-if="$page.props.auth.user"
-            :href="route('dashboard')"
-            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-            >Tableau de bord</Link
-        >
-
+        <template v-if="$page.props.auth.user">
+            <Link
+                v-if="$page.props.auth.user.role_id === 1 || $page.props.auth.user.role_id === 2"
+                :href="route('admin')"
+                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                >Admin</Link
+            >
+            <Link
+                v-else
+                :href="route('profile.edit')"
+                class="me-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                >Profil</Link
+            >
+        </template>
         <template v-else>
             <Link
                 :href="route('login')"

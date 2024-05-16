@@ -29,10 +29,6 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -45,6 +41,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('payment', [PaymentController::class, 'index'])->name('payment');
     Route::post('checkout', [PaymentController::class, 'checkout'])->name('checkout');
+
+    Route::get('shop', function() {
+        return Inertia::render('Shop', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'offers' => Offer::all()->select('id', 'name', 'price', 'ticket_number')->sortBy('ticket_number'),
+            'cartId' => Auth::user()->cart->id,
+        ]);
+    })->name('shop');
 });
 
 Route::get('/admin', function () {
@@ -54,19 +59,10 @@ Route::get('/admin', function () {
         ]);
     }
     abort(403);
-});
+})->name('admin');
 
 Route::post('offer', [OfferController::class, 'store'])->name('offer.store');
 Route::put('offer', [OfferController::class, 'update'])->name('offer.update');
 Route::delete('offer/{id}', [OfferController::class, 'destroy'])->name('offer.delete');
-
-Route::get('shop', function() {
-    return Inertia::render('Shop', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'offers' => Offer::all()->select('id', 'name', 'price', 'ticket_number')->sortBy('ticket_number'),
-        'cartId' => Auth::user()->cart->id,
-    ]);
-})->middleware(['auth', 'verified'])->name('shop');
 
 require __DIR__.'/auth.php';
