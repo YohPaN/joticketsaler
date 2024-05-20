@@ -62,14 +62,14 @@ Route::middleware(['auth', CartIsEmpty::class])->group(function() {
     Route::get('payment', [PaymentController::class, 'index'])->name('payment');
 });
 
-Route::get('/admin', function () {
+Route::get('/offer-managment', function () {
     if(Gate::allows('access-admin')) {
-        return Inertia::render('Admin', [
+        return Inertia::render('OfferManagment', [
             'offers' => Offer::all()
         ]);
     }
     abort(403);
-})->name('admin');
+})->name('offer-managment');
 
 Route::get('/scan', function () {
     if(Gate::allows('access-admin')) {

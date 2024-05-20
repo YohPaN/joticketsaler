@@ -22,7 +22,7 @@ class OfferController extends Controller
             'ticket_number' => $request->ticket_number,
         ]);
 
-        return redirect('/admin');
+        return redirect('/offer-managment');
     }
 
     public function update(Request $request)
@@ -41,7 +41,7 @@ class OfferController extends Controller
             'ticket_number' => $request->ticket_number,
         ]);
 
-        return redirect('/admin');
+        return redirect('/offer-managment');
     }
 
     public function destroy($id)

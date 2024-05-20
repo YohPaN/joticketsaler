@@ -30,7 +30,7 @@ function create() {
 </script>
 
 <template>
-    <Head title="Admin" />
+    <Head title="OfferManagment" />
 
     <AuthenticatedLayout>
         <template #header>

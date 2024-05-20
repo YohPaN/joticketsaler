@@ -37,6 +37,11 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                             </div>
                             <div class="ms-3 relative">
+                                <NavLink :href="route('offer-managment')" :active="route().current('dashboard')">
+                                    Gestion des offres
+                                </NavLink>
+                            </div>
+                            <div class="ms-3 relative">
                                 <NavLink :href="route('scan')" :active="route().current('dashboard')">
                                     Scan
                                 </NavLink>
@@ -98,6 +103,12 @@ const showingNavigationDropdown = ref(false);
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('welcome')" method="get" as="button">
                                 Acceuil
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('offer-managment')" method="get" as="button">
+                                Gestion des offres
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('scan')" method="get" as="button">
+                                Scan
                             </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                                 Déconnexion

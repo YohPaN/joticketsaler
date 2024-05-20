@@ -2,6 +2,8 @@
 import axios from 'axios';
 import { ref, onMounted } from 'vue'
 import { QrcodeStream } from 'vue-qrcode-reader';
+import { Head } from '@inertiajs/vue3';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 /*** detection handling ***/
 
@@ -133,28 +135,39 @@ function onError(err) {
 </script>
 
 <template>
-    <div class="min-h-screen">
+    <Head title="Scan" />
 
-        <div :class="'bg-' + color">
-            <p>Prenom: {{ name }}</p>
-            <p>Nom: {{ lastName }}</p>
-            <p>Resultat: {{ validationMessage }}</p>
-        </div>
+    <AuthenticatedLayout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Scan</h2>
+        </template>
+        <div class="md:py-12">
+            <div class="max-w-7xl mx-auto md:px-6 lg:px-8">
 
-        <div class="">
-            <qrcode-stream
-                :constraints="{ deviceId: selectedDevice.deviceId }"
-                :track="trackFunctionSelected.value"
-                :paused="paused"
-                @error="onError"
-                @detect="onDetect"
-                v-if="selectedDevice !== null"
-            />
-            <p v-else class="error">
-                No cameras on this device
-            </p>
+                <div :class="'min-h-screen md:min-h-full md:border md:border-black md:rounded-xl md:w-fit p-10 m-auto bg-' + color">
+                        <div>
+                            <p>Prenom: {{ name }}</p>
+                            <p>Nom: {{ lastName }}</p>
+                            <p>Resultat: {{ validationMessage }}</p>
+                        </div>
+
+                        <div class="rounded border border-slate-500 border-8 w-full mt-5">
+                            <qrcode-stream
+                                :constraints="{ deviceId: selectedDevice.deviceId }"
+                                :track="trackFunctionSelected.value"
+                                :paused="paused"
+                                @error="onError"
+                                @detect="onDetect"
+                                v-if="selectedDevice !== null"
+                            />
+                            <p v-else class="error">
+                                No cameras on this device
+                            </p>
+                        </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </AuthenticatedLayout>
 </template>
 
 <style scoped>
