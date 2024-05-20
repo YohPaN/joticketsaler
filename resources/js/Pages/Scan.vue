@@ -15,18 +15,16 @@ const validationMessage = ref('');
 const paused = ref(false);
 
 function onDetect(detectedCodes) {
-    console.log('test')
     result.value = JSON.stringify(detectedCodes.map((code) => code.rawValue))
-    axios.post(route('ticket-validation'), {id: result.value})
+    axios.post(route('ticket-validation'), {ticketUserId: result.value})
         .then((response) => {
             name.value = response.data.name;
             lastName.value = response.data.lastName;
-            validationMessage.value = response.data.validation;
-            if(response.data.isValide) {
-                color.value = 'success'
-            } else {
-                color.value = 'danger'
-            }
+            validationMessage.value = 'OK';
+            color.value = 'success'
+        }).catch((error) => {
+            validationMessage.value = error.response.data.message
+            color.value = 'danger'
         });
 
     paused.value = true;

@@ -6,8 +6,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CartIsEmpty;
 use App\Models\Offer;
-use App\Models\Ticket;
-use App\Models\User;
+use App\Services\TicketService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -83,33 +82,7 @@ Route::put('offer', [OfferController::class, 'update'])->name('offer.update');
 Route::delete('offer/{id}', [OfferController::class, 'destroy'])->name('offer.delete');
 
 Route::post('ticket-validation', function(Request $request) {
-    $ticket = Ticket::where('ticket_user_id', '=', json_decode($request->id)[0])->first();
-
-    $userId = DB::table('ticket_user')->where('id', '=', $ticket->ticket_user_id)->select('user_id')->first();
-
-    $user = User::find($userId->user_id);
-
-    $validation = 'OK';
-    $isValide = true;
-    if($user->id.'-'.$ticket->id != $ticket->ticket_user_id) {
-        $validation = 'Ticket invalide';
-        $isValide = false;
-    } elseif($ticket->scanned == 1) {
-        $validation = 'Ticket déjà scanné';
-        $isValide = false;
-    }
-
-    $ticket->update([
-        'scanned' => true,
-    ]);
-
-    return [
-        'name' => $user->name,
-        'lastName' => $user->last_name,
-        'validation' => $validation,
-        'isValide' => $isValide,
-    ];
-
+    return (new TicketService)->ticketValidation($request->ticketUserId);
 })->name('ticket-validation');
 
 require __DIR__.'/auth.php';

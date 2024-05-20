@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Mail\TicketMail;
 use App\Models\Offer;
 use App\Models\Ticket;
+use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -71,5 +73,35 @@ class TicketService
         ]);
 
         return $ticket;
+    }
+
+    public function ticketValidation($ticketUserId)
+    {
+        try {
+            $ticket = Ticket::where('ticket_user_id', '=', json_decode($ticketUserId)[0])->first();
+            $userId = DB::table('ticket_user')->where('id', '=', $ticket->ticket_user_id)->select('user_id')->first();
+            $user = User::find($userId->user_id);
+
+            if($user->id.'-'.$ticket->id != $ticket->ticket_user_id) {
+                throw new Exception('Ticket invalide');
+            } elseif($ticket->scanned == 1) {
+                throw new Exception('Ticket déjà scanné');
+            }
+
+            $ticket->update([
+                'scanned' => true,
+            ]);
+
+            return [
+                'name' => $user->name,
+                'lastName' => $user->last_name,
+            ];
+
+        } catch (Exception $e) {
+            if($e->getMessage() === 'Ticket déjà scanné' || $e->getMessage() === 'Ticket invalide') {
+                throw new Exception($e->getMessage());
+            }
+            throw new Exception('Le ticket n\'a pas été trouvé');
+        }
     }
 }
