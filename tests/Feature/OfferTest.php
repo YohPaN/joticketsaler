@@ -27,7 +27,7 @@ class OfferTest extends TestCase
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/admin');
+            ->assertRedirect('/offer-managment');
 
         $this->assertDatabaseHas('offers', [
             'name' => 'Test Offer',
@@ -59,7 +59,7 @@ class OfferTest extends TestCase
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/admin');
+            ->assertRedirect('/offer-managment');
 
         $this->assertDatabaseHas('offers', [
             'name' => 'Offer',
