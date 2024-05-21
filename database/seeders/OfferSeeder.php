@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class OfferSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeds for original offers.
      */
     public function run(): void
     {

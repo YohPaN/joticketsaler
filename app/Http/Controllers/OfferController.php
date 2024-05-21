@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offer;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
 {
-    public function store(Request $request)
+    /**
+     * Store a newly created offer.
+     */
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|min:1|max:255|unique:offers',
@@ -25,7 +29,10 @@ class OfferController extends Controller
         return redirect('/offer-managment');
     }
 
-    public function update(Request $request)
+    /**
+     * Update offer.
+     */
+    public function update(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'min:1', 'max:255', Rule::unique('offers')->ignore($request->id)],
@@ -44,7 +51,10 @@ class OfferController extends Controller
         return redirect('/offer-managment');
     }
 
-    public function destroy($id)
+    /**
+     * Destroy offer.
+     */
+    public function destroy($id): void
     {
         Offer::destroy($id);
     }

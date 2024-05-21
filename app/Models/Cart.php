@@ -9,5 +9,8 @@ class Cart extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = ['items', 'user_id'];
 }

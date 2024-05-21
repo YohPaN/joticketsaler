@@ -8,14 +8,13 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use app\Models\Ticket;
 
 class TicketMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
+     * Create a new message instance with offers that user bought.
      */
     public function __construct(
         protected array $offers,
@@ -30,7 +29,7 @@ class TicketMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('	organisateur@joticketsaler.fallforrising.com', 'Organisation des JO'),
+            from: new Address('organisateur@joticketsaler.fallforrising.com', 'Organisation des JO'),
             subject: 'Ticket pour les JO 2024',
         );
     }

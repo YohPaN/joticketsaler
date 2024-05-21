@@ -56,6 +56,10 @@ return [
             'throw' => false,
         ],
 
+        'local-docs' => [
+            'driver' => 'local',
+            'root' => storage_path('docs'),
+        ],
     ],
 
     /*

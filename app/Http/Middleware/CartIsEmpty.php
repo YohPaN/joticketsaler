@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CartIsEmpty
 {
     /**
-     * Handle an incoming request.
+     * Determine if the cart of user is empty.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */

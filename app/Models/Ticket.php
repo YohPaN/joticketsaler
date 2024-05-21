@@ -10,6 +10,9 @@ class Ticket extends Model
 {
     use HasFactory, HasUuids;
 
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'scanned',
         'ticket_user_id',

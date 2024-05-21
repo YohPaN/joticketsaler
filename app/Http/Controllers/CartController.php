@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Inertia\Response;
 use stdClass;
 
 class CartController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+     * Store items into cart.
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         $cart = Auth::user()->cart;
 
@@ -48,9 +49,9 @@ class CartController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the cart with its items.
      */
-    public function show()
+    public function show(): Response
     {
 
         $cart = Auth::user()->cart;
@@ -75,7 +76,7 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): void
     {
         $cart = Auth::user()->cart;
         $items = json_decode($cart->items);

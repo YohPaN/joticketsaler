@@ -47,6 +47,11 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                             </div>
                             <div class="ms-3 relative">
+                                <a href="docs/index.html" :active="route().current('dashboard')" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                                    Documentation
+                                </a>
+                            </div>
+                            <div class="ms-3 relative">
                                 <NavLink :href="route('logout')" method="post" as="button">
                                     Déconnecxion
                                 </NavLink>
@@ -110,6 +115,9 @@ const showingNavigationDropdown = ref(false);
                             <ResponsiveNavLink :href="route('scan')" method="get" as="button">
                                 Scan
                             </ResponsiveNavLink>
+                            <a href="docs/index.html" class="block w-full ps-3 pe-4 py-2 border-l-4 border-transparent text-start text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+                                Documentation
+                            </a>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                                 Déconnexion
                             </ResponsiveNavLink>

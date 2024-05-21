@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor
+    configVersion="3"
+>
+    <paths>
+        <output>storage/docs</output>
+    </paths>
+    <version number="latest">
+        <api>
+            <source dsn=".">
+                <!-- <path></path> -->
+            </source>
+            <ignore>
+                <path>tests/</path>
+                <path>vendor/</path>
+                <path>app/Console/</path>
+                <path>app/Exceptions/</path>
+                <path>app/Http/Requests/</path>
+                <path>database/factories/</path>
+            </ignore>
+        </api>
+    </version>
+</phpdocumentor>

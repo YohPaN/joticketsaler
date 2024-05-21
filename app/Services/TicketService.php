@@ -16,12 +16,18 @@ class TicketService
 
     private $user;
 
+    /**
+     * Construct TicketService class with user actually logged
+     */
     public function __construct()
     {
         $this->user = Auth::user();
     }
 
-    public function ticketCreation()
+    /**
+     * Generate the ticket with its unique ID and send an email to the user.
+     */
+    public function ticketCreation(): bool
     {
         $items = json_decode($this->user->cart->items);
         $offers = [];
@@ -54,7 +60,10 @@ class TicketService
         return false;
     }
 
-    private function ticketRegistering()
+    /**
+     * Add the ticket to the tickets table and add an entry into ticket_user.
+     */
+    private function ticketRegistering(): Ticket
     {
         $ticket = Ticket::create([
             'scanned' => false,
@@ -75,7 +84,10 @@ class TicketService
         return $ticket;
     }
 
-    public function ticketValidation($ticketUserId)
+    /**
+     * Perform a ticket validation based on if the ticket exist, if the ticket have been already scanne.
+     */
+    public function ticketValidation($ticketUserId): array
     {
         try {
             $ticket = Ticket::where('ticket_user_id', '=', json_decode($ticketUserId)[0])->first();

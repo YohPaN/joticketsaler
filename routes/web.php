@@ -7,11 +7,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CartIsEmpty;
 use App\Models\Offer;
 use App\Services\TicketService;
+use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 /*
@@ -76,6 +77,16 @@ Route::get('/scan', function () {
     }
     abort(403);
 })->name('scan');
+
+Route::get('/docs/{url?}', function ($url="") {
+    if($url === "") {
+        header("Location: /docs/index.html");
+        exit;
+    }
+    $resp = response(Storage::disk('local-docs')->get($url));
+    $resp->header('content-type', MimeType::fromFilename($url));
+    return $resp;
+})->where('url', '(.*)');
 
 Route::post('offer', [OfferController::class, 'store'])->name('offer.store');
 Route::put('offer', [OfferController::class, 'update'])->name('offer.update');

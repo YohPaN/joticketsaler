@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class RoleSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeds for roles.
      */
     public function run(): void
     {
