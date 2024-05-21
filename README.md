@@ -1,67 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Introduction
+Cette documentation est destiné à l'utilisateur de l'application au niveau "organisator" ou "administrator".
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Table des matières
+* [Gestion des utilisateurs](#gestion-des-utilisateurs)
+    * [Création de compte](#création-de-compte)
+    * [Authentification](#authentification)
+    * [Modification et suppression de compte](#modification-et-suppression-de-compte)
+* [Gestion des tickets](#gestion-des-tickets)
+    * [Panier](#panier)
+    * [Paiement](#paiement)
+    * [E-ticket](#e-ticket)
+    * [Scanning des tickets](#scanning-des-tickets)
+* [Gestion des offres](#gestion-des-offres)
+    * [Création d'une offre](#création-dune-offre)
+    * [Modification et suppression d'une offre](#modification-et-suppression-dune-offre)
 
 
-## About Laravel
+# Gestion des utilisateurs
+Cette section traite de la gestion des utilisateurs et de leurs comptes.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Création de compte
+Chaque utilisateur peut créer un compte en se rendant à l'URL suivante : https://joticketsaler.fallforrising.com/register.  
+Lors de l'inscription, les informations suivantes seront demandées :
+* Nom
+* Prénom
+* Adresse email
+* Mot de passe (le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**A venir :** Nous demanderons aux utilisateurs de valider leur adresse email via un lien qui leur sera envoyé.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Authentification
+Chaque utilisateur possédant un compte pourra s'authentifier à l'URL suivante : https://joticketsaler.fallforrising.com/login, en utilisant l'adresse email renseignée lors de son inscription, ainsi que son mot de passe.  
+Une fois authentifié, l'utilisateur aura accès aux fonctionnalités suivantes :
+* Accès à la boutique
+* Ajout d'articles dans son panier
+* Paiement de ses articles
+* Modification de son compte
+* Suppression de son compte
 
-## Learning Laravel
+**A venir :** Nous demanderons aux utilisateurs de procéder à une double authentification en saisissant un code qui leur sera envoyé par email.   
+**Sécurité :** Les utilisateurs possèdent un identifiant de type UUID, ce qui rend leur obtention impossible. De plus, comme évoqué ci-dessus, les mots de passe doivent respecter des critères de sécurité minimum.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Modification et suppression de compte
+Chaque utilisateur possédant un compte peut le modifier ou le supprimer à l'URL suivante : https://joticketsaler.fallforrising.com/profil.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# Gestion des tickets
+Cette section traite de la gestion des tickets et de leur validation.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Panier
+L'utilisateur, après s'être authentifié, pourra ajouter des tickets à son panier en se rendant à l'URL suivante : https://joticketsaler.fallforrising.com/shop.  
+De plus, il aura la possibilité de revoir son panier avant de passer au paiement à l'URL suivante : https://joticketsaler.fallforrising.com/cart.  
+À partir de cette page, il pourra également supprimer des articles de son panier.  
+**Attention: Cette URL n'est accessible que si le panier de l'utilisateur n'est pas vide.**
 
-## Laravel Sponsors
+**A venir :** Les clients pourront modifier les quantités des articles dans leur panier lors de la révision de celui-ci.  
+**Sécurité :** Ces pages ne sont accessibles que si l'utilisateur est authentifié.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Paiement
+L'utilisateur pourra payer les articles de son panier à l'URL suivante : https://joticketsaler.fallforrising.com/payment.  
+**Attention: Cette URL n'est accessible que si le panier de l'utilisateur n'est pas vide.**
 
-### Premium Partners
+**Sécurité :** Ces pages ne sont accessibles que si l'utilisateur est authentifié.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## E-ticket
+Lors du paiement, l'utilisateur recevra un nombre de tickets correspondant aux offres sélectionnées et à la quantité de chacune d'elles.  
+Ces tickets seront envoyés par email à l'adresse fournie lors de l'inscription.  
+Les tickets sont représentés par des QR codes uniques pour chaque ticket.
 
-## Contributing
+## Scanning des tickets
+Un utilisateur ayant un rôle d'`admin` ou d'`organisator` pourra se rendre à l'URL suivante : https://joticketsaler.fallforrising.com/scan.  
+Si l'appareil sur lequel il ouvre cette page possède une caméra, il lui sera demandé la permission d'utiliser cette caméra (les autorisations sont gérées par le navigateur).  
+Il aura alors la vue de sa caméra et pourra scanner des tickets avec celle-ci.  
+L'application se chargera de valider le ticket. Quatre cas sont possibles :
+* Le ticket est authentique, existe et n'a pas encore été scanné :
+    L'interface sera colorée en vert, le nom et le prénom du possesseur du ticket seront visibles, et un message indiquant "OK" sera affiché.  
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Le ticket n'a pas été trouvé :
+    Le ticket n'existe pas ou la lecture du QR code n'a pas fonctionné (réessayer). L'interface sera colorée en rouge et un message indiquant "Le ticket n'a pas été trouvé" sera affiché.
 
-## Code of Conduct
+* Le ticket n'est pas valide :
+    Le ticket n'existe pas ou il est erroné. L'interface sera colorée en rouge et un message indiquant "Ticket invalide" sera affiché.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* Le ticket a été trouvé mais a déjà été scanné : 
+    L'interface sera colorée en rouge et un message indiquant "Ticket déjà scanné" sera affiché.
 
-## Security Vulnerabilities
+**Attention: Cette interface n'est accessible que si l'utilisateur possède le rôle d'`admin` ou d'`organisator`.**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Gestion des offres
+Les organisateurs et administrateurs peuvent ajouter, modifier ou supprimer des offres de tickets.  
+**Attention:  Cette section n'est accessible qu'aux utilisateurs possédant le rôle d'`admin` ou d'`organisator`.**
 
-## License
+## Création d'une offre
+L'utilisateur peut créer une offre en cliquant sur l'icône d'ajout et en fournissant les informations suivantes :
+* Le nom de l'offre
+* Le prix, qui doit être sous la forme `xx.xx`.
+* La quantité de tickets dans l'offre
+Une image par défaut sera affichée pour les noms autres que `solo`, `duo` ou `familly`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Modification et suppression d'une offre
+L'utilisateur peut modifier une offre en cliquant sur `edit`.  
+Il sera invité à modifier les informations de l'offre en respectant les mêmes conditions que pour la création.  
+De plus, il peut supprimer l'offre en cliquant sur `delete`.
