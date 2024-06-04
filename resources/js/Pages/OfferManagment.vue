@@ -4,14 +4,35 @@ import OfferEdit from '@/Components/OfferEdit.vue'
 import OfferCreate from '@/Components/OfferCreate.vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
+import Modal from '@/Components/Modal.vue';
+import DangerButton from '@/Components/DangerButton.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { ref } from 'vue';
 const images = import.meta.glob('/resources/assets/*_ticket.png', { eager: true, query: 'url', import: 'default' })
 
 defineProps({offers: Array})
 
+let offerToDelete = null;
+const show = ref(false);
+
+function close() {
+    show.value = false;
+    offerToDelete = null;
+}
+
 function deleteOffer(id) {
     router.delete('offer/' + id, {
         preserveScroll: true,
+        onFinish: () => {
+            show.value = false;
+            offerToDelete = null;
+        },
     });
+}
+
+function openDeleteConfirmation(offer) {
+    offerToDelete = offer;
+    show.value = true;
 }
 
 
@@ -31,6 +52,23 @@ function create() {
 
 <template>
     <Head title="OfferManagment" />
+
+    <Modal :show="show" @close="close">
+        <div class="w-full h-64 flex justify-center items-center bg-warning p-5 border-4 border-black rounded-md">
+            <div class="grid grid-row-3 text-2xl text-center">
+                <p>Etes-vous sure de vouloir supprimer l'offre:</p>
+                <b class="capitalize">{{ offerToDelete.name }}</b>
+                <div class="flex justify-between mt-16">
+                    <PrimaryButton @click="close">
+                        <p class="py-2 px-4">Annuler</p>
+                    </PrimaryButton>
+                    <DangerButton @click="deleteOffer(offerToDelete.id)">
+                        <p class="py-2 px-4">Supprimer</p>
+                    </DangerButton>
+                </div>
+            </div>
+        </div>
+    </Modal>
 
     <AuthenticatedLayout>
         <template #header>
@@ -59,7 +97,7 @@ function create() {
                         </template>
                         <template #button>
                             <button class="bg-primary w-32 rounded-xl p-2 text-white" @click="edit(offer.id)">Edit</button>
-                            <button class="bg-danger w-32 rounded-xl p-2" @click="deleteOffer(offer.id)">Delete</button>
+                            <button class="bg-danger w-32 rounded-xl p-2" @click="openDeleteConfirmation(offer)">Delete</button>
                         </template>
                     </Offer>
                 </div>
